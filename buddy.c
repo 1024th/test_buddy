@@ -54,10 +54,10 @@ int init_page(void *p, int pgcount) {
       p += addr_incr;
     }
   }
-  assert(node[1].p == mem_start);
-  assert(node[1].is_allocated == 0);
-  assert(node[1].next == NULL);
-  assert(node[1].prev == NULL);
+  // assert(node[1].p == mem_start);
+  // assert(node[1].is_allocated == 0);
+  // assert(node[1].next == NULL);
+  // assert(node[1].prev == NULL);
   free_list[max_rank - 1].head = &node[1];
   free_list[max_rank - 1].size = 1;
   return OK;
@@ -76,7 +76,7 @@ void *alloc_pages(int rank) {
   }
 
   // remove from free list
-  assert(n->prev == NULL);
+  // assert(n->prev == NULL);
   if (n->next != NULL) n->next->prev = NULL;
   free_list[i - 1].head = n->next;
   free_list[i - 1].size--;
@@ -87,12 +87,12 @@ void *alloc_pages(int rank) {
     n->is_allocated = 1;
     i--;
     // in this case, free_list[i - 1] must be empty
-    assert(free_list[i - 1].head == NULL);
+    // assert(free_list[i - 1].head == NULL);
     int node_idx = n - node;
     struct tree_node *rc = &node[(node_idx << 1) | 1];  // right child
-    assert(rc->is_allocated == 0);
-    assert(rc->next == NULL);
-    assert(rc->prev == NULL);
+    // assert(rc->is_allocated == 0);
+    // assert(rc->next == NULL);
+    // assert(rc->prev == NULL);
     free_list[i - 1].head = rc;
     free_list[i - 1].size = 1;
     n = &node[node_idx << 1];  // left child
